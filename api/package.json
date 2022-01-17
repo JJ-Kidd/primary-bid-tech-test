@@ -5,6 +5,9 @@
   "repository": "git@github.com:JJ-Kidd/primary-bid-tech-test.git",
   "author": "Jordan Kidd",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack -w"
+  },
   "dependencies": {
     "express": "^4.17.2"
   },
