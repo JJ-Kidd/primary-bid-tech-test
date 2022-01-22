@@ -1,9 +1,17 @@
 version: "3.9"
 services:
   web:
-    build: ./api/
+    build:
+      context: ./api/
+      args:
+        - MONGO_USER=$MONGO_USER
+        - MONGO_PASSWORD=$MONGO_PASSWORD
+        - MONGO_URL=$MONGO_URL
+        - MONGO_DB=$MONGO_DB
     ports:
       - "4000:8080"
+    container_name: api
+    
   mongo:
     build: 
       context: ./api/
@@ -11,6 +19,7 @@ services:
     ports:
       - "4001:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password123
-      MONGO_INITDB_DATABASE: urlshortener
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USER
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+      MONGO_INITDB_DATABASE: $MONGO_DB
+    container_name: $MONGO_CONTAINER_NAME
