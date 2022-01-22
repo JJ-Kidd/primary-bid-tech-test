@@ -6,7 +6,8 @@
   "author": "Jordan Kidd",
   "license": "MIT",
   "scripts": {
-    "start": "webpack -w"
+    "start": "webpack -w",
+    "build": "webpack"
   },
   "dependencies": {
     "express": "^4.17.2"
