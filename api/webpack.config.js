@@ -1,4 +1,5 @@
 const path = require('path')
+const Dotenv = require('dotenv-webpack');
 const NodemonPlugin = require('nodemon-webpack-plugin')
 
 module.exports = {
@@ -21,6 +22,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    new NodemonPlugin()
+    new NodemonPlugin(),
+    new Dotenv()
   ]
 }
