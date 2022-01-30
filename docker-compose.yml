@@ -8,6 +8,7 @@ services:
         - MONGO_PASSWORD=$MONGO_PASSWORD
         - MONGO_URL=$MONGO_URL
         - MONGO_DB=$MONGO_DB
+        - USE_LOCAL_DB=$USE_LOCAL_DB
     ports:
       - "4000:8080"
     container_name: api

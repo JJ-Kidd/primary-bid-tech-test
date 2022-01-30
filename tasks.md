@@ -6,6 +6,6 @@ The specs for the application are:
 - [ ] The same 8-characters cannot be used twice i.e. each shortened URL needs to be unique.
 - [ ] The URLs need to be shortened with the following domain 'pbid.io' e.g. https://pbid.io/f3x2ab1c
 - [ ] The shortened URL do not need to actually redirect/work as the domain doesn’t exist.
-- [ ] The entire system needs to be runnable using Docker, a simple compose file will do.
+- [x] The entire system needs to be runnable using Docker, a simple compose file will do.
 - [ ] Appropriate tests should be added to the code, using the jest framework.
 - [ ] The app layout should be responsive.
