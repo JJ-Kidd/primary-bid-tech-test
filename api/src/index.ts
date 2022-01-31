@@ -1,6 +1,7 @@
 import express from 'express';
 import { Request, Response } from 'express';
 import mongoClient from './mongo';
+import { getUrls } from './repo/url';
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
@@ -11,14 +12,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello PrimaryBid');
 });
 
-app.get('/dbconnection', async (req: Request, res: Response) => {
-  try{
-    const dbConnection = await mongoClient();
-    console.log(dbConnection);
-  } catch(e) {
-    console.log("An error occurred connecting to the DB", e);
-  }
-  res.send("Connection test, check console");
+app.get('/urls', async (req: Request, res: Response) => {
+  const results = await getUrls();
+  res.send(results);
 });
 
 app.listen(PORT, HOST);
