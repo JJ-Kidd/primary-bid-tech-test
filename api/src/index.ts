@@ -13,7 +13,6 @@ const app = express();
 app.use(express.json())
 
 app.get('/', (req: Request, res: Response) => {
-  console.log(process.env);
   res.send('Hello PrimaryBid');
 });
 
@@ -29,7 +28,6 @@ app.get('/urls', async (req: Request, res: Response) => {
 });
 
 app.post('/create-short-link', async (req: Request, res: Response) => {
-  console.log(req.body);
   const { url } = req.body || {};
   if(!url) {
     res.status(400).send("Error: Missing `URL` parameter")
