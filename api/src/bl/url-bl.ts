@@ -2,7 +2,7 @@ import { getUrlByShort, insertUrl } from "../repo/url-repo";
 import { shortGen } from "../util/short-gen";
 
 export const ensureUniqueShort = async () => {
-  let unique: boolean = false;
+  let unique: boolean;
   let short: string;
   while(unique != true){
     short = shortGen();
