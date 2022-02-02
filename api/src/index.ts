@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import { getUrls } from './repo/url-repo';
 import { createShortUrl } from './bl/url-bl';
 
+const { BASE_URL} = process.env
+
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
@@ -17,7 +19,13 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/urls', async (req: Request, res: Response) => {
   const results = await getUrls();
-  res.send(results);
+  const urls = results.map(({short_url, long_url}) => {
+    return {
+      short_url: `${BASE_URL}${short_url}`,
+      long_url
+    }
+  })
+  res.send(urls);
 });
 
 app.post('/create-short-link', async (req: Request, res: Response) => {
