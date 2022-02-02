@@ -9,7 +9,7 @@ const uri = USE_LOCAL_DB ?
 let client: MongoClient;
 let cachedDb: Db;
 
-const mongoClient = async () => {
+export const mongoClient = async () => {
   if (cachedDb) {
     return cachedDb;
   }
@@ -24,6 +24,4 @@ const mongoClient = async () => {
     console.error(e);    
   }
 }
-
-export default mongoClient;
 
