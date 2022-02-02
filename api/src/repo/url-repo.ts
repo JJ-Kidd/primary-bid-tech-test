@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import mongoClient from '../mongo';
+import { mongoClient } from '../mongo';
 
 const collection = 'url'
 
