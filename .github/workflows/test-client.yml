@@ -1,0 +1,19 @@
+name: Test
+on: push
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          repository: JJ-Kidd/primary-bid-tech-test
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run test
+        run: yarn test
