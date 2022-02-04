@@ -16,6 +16,7 @@ export const ensureUniqueShort = async () => {
 
 export const createShortUrl = async (url: string) => {
   const short = await ensureUniqueShort();
-  const result = await insertUrl({short_url: short, long_url: url });
-  return result;
+  const success = await insertUrl({short_url: short, long_url: url });
+  if(!success) return { success };
+  return { success, short_url: short };
 } 

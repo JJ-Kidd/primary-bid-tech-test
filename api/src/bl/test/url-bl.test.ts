@@ -5,6 +5,7 @@ import { WithId, Document, ObjectId } from "mongodb";
 
 const mockGetUrlByShort = (getUrlByShort as jest.MockedFunction<typeof getUrlByShort>)
 const mockShortGen = (shortGen as jest.MockedFunction<typeof shortGen>)
+const mockInsertUrl = (insertUrl as jest.MockedFunction<typeof insertUrl>)
 
 jest.mock("../../repo/url-repo", () => {
   return {
@@ -30,13 +31,26 @@ test("ensureUniqueShort iterates when short exists in database", async () => {
   expect(await ensureUniqueShort()).toBe("43dfa25f")
 })
 
-test("createShortUrl", async () => {
+test("createShortUrl success", async () => {
   mockGetUrlByShort
     .mockImplementationOnce(() => null)
   mockShortGen.mockImplementationOnce(() => "43dfa25f");
+  mockInsertUrl.mockImplementation(async() => true);
+  const createShortRes = await createShortUrl("https://google.com")
 
-  await createShortUrl("https://google.com")
+  expect(mockInsertUrl).toHaveBeenCalledWith({short_url: "43dfa25f", long_url: "https://google.com"})
+  expect(createShortRes).toMatchObject({ success: true, short_url: "43dfa25f"})
+})
 
-  expect(insertUrl).toHaveBeenCalledWith({short_url: "43dfa25f", long_url: "https://google.com"})
+
+test("createShortUrl failure", async () => {
+  mockGetUrlByShort
+    .mockImplementationOnce(() => null)
+  mockShortGen.mockImplementationOnce(() => "43dfa25f");
+  mockInsertUrl.mockImplementation(async() => false);
+  const createShortRes = await createShortUrl("https://google.com")
+
+  expect(mockInsertUrl).toHaveBeenCalledWith({short_url: "43dfa25f", long_url: "https://google.com"})
+  expect(createShortRes).toMatchObject({ success: false })
 })
 

@@ -3,14 +3,21 @@ import { Request, Response } from 'express';
 import { getUrls } from './repo/url-repo';
 import { createShortUrl } from './bl/url-bl';
 
-const { BASE_URL} = process.env
+const { BASE_URL } = process.env
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
 const app = express();
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(express.json())
+
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello PrimaryBid');
@@ -32,8 +39,9 @@ app.post('/create-short-link', async (req: Request, res: Response) => {
   if(!url) {
     res.status(400).send("Error: Missing `URL` parameter")
   } else{
-    const creation = await createShortUrl(url);
-    res.send(creation);
+    const createRes = await createShortUrl(url);
+    const short = createRes.short_url ? `${BASE_URL}${createRes.short_url}` : null
+    res.send({ ...createRes, short_url: short });
   }
 });
 
